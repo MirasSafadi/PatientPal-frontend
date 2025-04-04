@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
 export default function Login() {
-  // הגדרת state לאחסון הנתונים מהטופס
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // פונקציה שתתפוס את הנתונים מהטופס
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // כאן תוכל לשלוח את המידע ל-Backend (למשל לשלוח את המייל והסיסמה)
     console.log('Email:', email, 'Password:', password);
   };
 
