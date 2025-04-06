@@ -3,13 +3,14 @@ import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 
 function HomePage() {
     // State to manage chat messages and input
-    const [messages, setMessages] = useState([{
-        text: "Your message here", // The content of the message
-        sender: "user"            // Indicates the sender (e.g., "user")
-    }, {
-        text: "Your message here",
-        sender: "bot"            // Indicates the sender (e.g., "user")
-    }]);
+    // const [messages, setMessages] = useState([{
+    //     text: "Your message here", // The content of the message
+    //     sender: "user"            // Indicates the sender (e.g., "user")
+    // }, {
+    //     text: "Your message here",
+    //     sender: "bot"            // Indicates the sender (e.g., "user")
+    // }]);
+    const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
 
     const handleSendMessage = () => {
@@ -55,6 +56,29 @@ function HomePage() {
                         justifyContent: messages.length === 0 ? "center" : "flex-start", // Center if no messages
                     }}
                 >
+                    {messages.length === 0 && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                mb: 1,
+                                width: "100%" // Ensure messages take up the full width of the container
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    maxWidth: "70%",
+                                    padding: 1,
+                                    textAlign: "center",
+                                    borderRadius: 2,
+                                    opacity: 0.5,
+                                    backgroundColor: "#e0e0e0"
+                                }}
+                            >
+                                Start chatting with us!<br/>Type your message below and hit "Send".
+                            </Typography>
+                        </Box>
+                    )}
                     {messages.map((message, index) => (
                         <Box
                             key={index}
@@ -85,7 +109,7 @@ function HomePage() {
                         variant="outlined"
                         placeholder="Type your message..."
                         value={input}
-                        autoComplete="off"
+                        autoComplete="false"
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
