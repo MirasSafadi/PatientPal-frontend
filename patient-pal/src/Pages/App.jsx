@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
+import RegisterPage from './RegisterPage.jsx';
+
 
 import '../styles/App.css';
 
@@ -24,7 +26,7 @@ function App() {
             }
           />
           {/* <Route path="login" element={<Login />} /> */}
-          {/* <Route path="register" element={<Register />} /> */}
+          { <Route path="register" element={<RegisterPage />} />}
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
