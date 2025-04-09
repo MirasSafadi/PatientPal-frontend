@@ -3,14 +3,14 @@ import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 
 function HomePage() {
     // State to manage chat messages and input
-    // const [messages, setMessages] = useState([{
-    //     text: "Your message here", // The content of the message
-    //     sender: "user"            // Indicates the sender (e.g., "user")
-    // }, {
-    //     text: "Your message here",
-    //     sender: "bot"            // Indicates the sender (e.g., "user")
-    // }]);
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([{
+        text: "Your message here", // The content of the message
+        sender: "user"            // Indicates the sender (e.g., "user")
+    }, {
+        text: "Your message here",
+        sender: "bot"            // Indicates the sender (e.g., "user")
+    }]);
+    // const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
 
     const handleSendMessage = () => {
