@@ -1,8 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
-
+import Login from "./Login.jsx";
+/*import register from "./register.jsx"; */
 import '../styles/App.css';
 
 // Mock authentication function
@@ -19,12 +20,12 @@ function App() {
         <Route
             index
             element={
-              // isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
-              <Home />
+              isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
+              // <Home />
             }
           />
-          {/* <Route path="login" element={<Login />} /> */}
-          {/* <Route path="register" element={<Register />} /> */}
+          <Route path="login" element={<Login />} />
+          {/*<Route path="register" element={<Register />} />*/ }
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
