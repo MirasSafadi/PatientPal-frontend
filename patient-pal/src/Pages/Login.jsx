@@ -116,7 +116,7 @@ const Login = () => {
               }}
             />
           </Link>
-
+ 
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -131,7 +131,7 @@ const Login = () => {
             </Box>
           </Typography>
         </Box>
-
+ 
         <Typography
           variant="h6"
           mt={2}
@@ -142,7 +142,7 @@ const Login = () => {
         >
           Login to Your Account
         </Typography>
-
+ 
         {/* Form */}
         <form onSubmit={handleLogin}>
           <Stack direction="row" spacing={2}>
@@ -166,7 +166,7 @@ const Login = () => {
               />
             </Box>
           </Stack>
-
+ 
           <TextField
             fullWidth
             margin="dense"
@@ -185,7 +185,7 @@ const Login = () => {
               },
             }}
           />
-
+ 
           {/* Remember Me Checkbox */}
           <div className="flex items-center mb-6">
             <input
@@ -197,7 +197,7 @@ const Login = () => {
             />
             <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember me</label>
           </div>
-
+ 
           <Button
             variant="contained"
             color="primary"
@@ -210,27 +210,11 @@ const Login = () => {
           >
             Login
           </Button>
-
-          {error && (
-            <Typography color="error" variant="body2" mt={2} align="center">
-              {error}
-            </Typography>
-          )}
         </form>
-
-        {/* Sign Up Link */}
-        <Box sx={{ textAlign: "center", mt: 3 }}>
-          <Typography variant="body2">
-            Don't have an account?{" "}
-            <Link to="/register" style={{ color: '#1976d2', fontWeight: 'bold', textDecoration: 'none' }}>
-              Sign Up
-            </Link>
-          </Typography>
-        </Box>
-
       </Box>
     </Container>
   );
 };
-
+ 
 export default Login;
+ 
