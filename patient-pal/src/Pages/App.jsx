@@ -9,6 +9,7 @@ import MedicalApp from "./MedicalApp.jsx";
 import { SocketProvider } from "./SocketContext.jsx"; // Import the SocketProvider
 
 import Login from "./Login.jsx";
+import MedicalApp from "./MedicalApp.jsx";
 /*import register from "./register.jsx"; */
 import '../styles/App.css';
 
