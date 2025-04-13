@@ -6,6 +6,7 @@ import Login from "./Login.jsx";
 /*import register from "./register.jsx"; */
 import '../styles/App.css';
 
+
 // Mock authentication function
 const isAuthenticated = () => {
   // Replace this with your actual authentication logic
