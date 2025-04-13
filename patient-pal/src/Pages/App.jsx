@@ -3,6 +3,7 @@ import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
 import Login from "./Login.jsx";
+import MedicalApp from "./MedicalApp.jsx";
 /*import register from "./register.jsx"; */
 import '../styles/App.css';
 
@@ -26,6 +27,9 @@ function App() {
             }
           />
           <Route path="login" element={<Login />} />
+          <Route path="MedicalApp" element={<MedicalApp />} />
+          
+
           {/*<Route path="register" element={<Register />} />*/ }
           <Route path="*" element={<PageNotFound />} />
         </Route>

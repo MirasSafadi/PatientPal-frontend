@@ -64,6 +64,9 @@ function Layout() {
             <ListItem button component={Link} to="/register">
               <ListItemText primary="Register" />
             </ListItem>
+            <ListItem button component={Link} to="/MedicalApp">
+              <ListItemText primary="MedicalApp" />
+            </ListItem>
           </List>
         </Box>
       </Drawer>
