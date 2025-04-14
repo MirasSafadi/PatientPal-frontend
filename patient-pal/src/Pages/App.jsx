@@ -11,6 +11,7 @@ import { SocketProvider } from "./SocketContext.jsx"; // Import the SocketProvid
 import Login from "./Login.jsx";
 import MedicalApp from "./MedicalApp.jsx";
 /*import register from "./register.jsx"; */
+/* import register from "./register.jsx"; */
 import '../styles/App.css';
 
 import { AuthProvider, AuthContext } from "../context/AuthContext";
@@ -28,10 +29,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-          <Route
+            <Route
               index
               element={
-                // isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
                 <PrivateRoute>
                   <SocketProvider>
                     <Home />
