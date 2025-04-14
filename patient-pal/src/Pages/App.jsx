@@ -5,36 +5,40 @@ import Layout from './Layout.jsx';
 import Login from "./Login.jsx";
 import MedicalApp from "./MedicalApp.jsx";
 /*import register from "./register.jsx"; */
+/* import register from "./register.jsx"; */
 import '../styles/App.css';
 
+import { AuthProvider, AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
-// Mock authentication function
-const isAuthenticated = () => {
-  // Replace this with your actual authentication logic
-  return localStorage.getItem("authToken") !== null;
+// ✔️ פונקציית עטיפה בשביל לגשת ל־Context בתוך Routes
+const PrivateRoute = ({ children }) => {
+  const { token } = useContext(AuthContext);
+  return token ? children : <Navigate to="/login" replace />;
 };
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-        <Route
-            index
-            element={
-              isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
-              // <Home />
-            }
-          />
-          <Route path="login" element={<Login />} />
-          <Route path="MedicalApp" element={<MedicalApp />} />
-          
-
-          {/*<Route path="register" element={<Register />} />*/ }
-          <Route path="*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route path="login" element={<Login />} />
+            <Route path="MedicalApp" element={<MedicalApp />} />
+            {/* <Route path="register" element={<Register />} /> */}
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react"; 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
   Box,
@@ -9,25 +9,51 @@ import {
   Button,
   Stack,
 } from "@mui/material";
- 
+import { AuthContext } from "../context/AuthContext";
+
 const Login = () => {
   const [form, setForm] = useState({
-    username: "",
-    password: "",
+    username: "testuser",
+    password: "testpass",
   });
- 
+  const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const { setToken } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
- 
-  const [rememberMe, setRememberMe] = useState(false);
- 
-  const handleLogin = (e) => {
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Username:", form.username, "Password:", form.password);
-    // Continue to submit logic or backend API call here
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          username: form.username,
+          password: form.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        setToken(data.token);
+        navigate("/");
+      } else {
+        setError(data.error || data.message || "Login failed");
+      }
+    } catch (err) {
+      setError("Server error. Please try again later.");
+    }
   };
- 
+
   return (
     <Container maxWidth="xs">
       <Box
@@ -54,7 +80,7 @@ const Login = () => {
               }}
             />
           </Link>
- 
+
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -69,7 +95,7 @@ const Login = () => {
             </Box>
           </Typography>
         </Box>
- 
+
         <Typography
           variant="h6"
           mt={2}
@@ -80,7 +106,7 @@ const Login = () => {
         >
           Login to Your Account
         </Typography>
- 
+
         {/* Form */}
         <form onSubmit={handleLogin}>
           <Stack direction="row" spacing={2}>
@@ -104,7 +130,7 @@ const Login = () => {
               />
             </Box>
           </Stack>
- 
+
           <TextField
             fullWidth
             margin="dense"
@@ -123,7 +149,7 @@ const Login = () => {
               },
             }}
           />
- 
+
           {/* Remember Me Checkbox */}
           <div className="flex items-center mb-6">
             <input
@@ -135,7 +161,7 @@ const Login = () => {
             />
             <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember me</label>
           </div>
- 
+
           <Button
             variant="contained"
             color="primary"
@@ -148,11 +174,16 @@ const Login = () => {
           >
             Login
           </Button>
+
+          {error && (
+            <Typography color="error" variant="body2" mt={2} align="center">
+              {error}
+            </Typography>
+          )}
         </form>
       </Box>
     </Container>
   );
 };
- 
+
 export default Login;
- 
