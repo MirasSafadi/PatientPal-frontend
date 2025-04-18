@@ -6,6 +6,8 @@ import Register from "./Register";
  // ✅ ודא שהקובץ קיים
 import Login from "./Login.jsx";
 import MedicalApp from "./MedicalApp.jsx";
+import { SocketProvider } from "./SocketContext.jsx"; // Import the SocketProvider
+
 import '../styles/App.css';
 
 import { AuthProvider, AuthContext } from "../context/AuthContext";
@@ -23,11 +25,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route
+          <Route
               index
               element={
+                // isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
                 <PrivateRoute>
-                  <Home />
+                  <SocketProvider>
+                    <Home />
+                  </SocketProvider>
                 </PrivateRoute>
               }
             />
