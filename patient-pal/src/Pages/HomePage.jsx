@@ -6,20 +6,18 @@ function HomePage() {
   const socket = useSocket(); // Access the socket instance
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false); // Track if waiting for server response
 
   useEffect(() => {
     if (!socket) return;
-    // Listen for connection
-    socket.on("connect", () => {
-        console.log("Connected to server");
-    });
-    
-    socket.on("response", (data) => {
-        console.log("Server response:", data);
-    });
+
     // Listen for incoming messages
     socket.on("message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
+      setIsTyping(false); // Stop showing "typing..." when a message is received
+    });
+    socket.on("connect", () => {
+      console.log("Connected to server");
     });
 
     // Clean up the listener on unmount
@@ -38,6 +36,9 @@ function HomePage() {
       // Add the user's message to the chat
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInput("");
+
+      // Show "typing..." while waiting for server response
+      setIsTyping(true);
     }
   };
 
@@ -106,6 +107,30 @@ function HomePage() {
               </Typography>
             </Box>
           ))}
+
+          {/* Typing Indicator */}
+          {isTyping && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                mb: 1,
+              }}
+            >
+              <Typography
+                sx={{
+                  maxWidth: "50%",
+                  padding: 1,
+                  borderRadius: 2,
+                  backgroundColor: "#e0e0e0",
+                  color: "#000000",
+                  fontStyle: "italic",
+                }}
+              >
+                ...
+              </Typography>
+            </Box>
+          )}
         </Box>
         <Box sx={{ display: "flex", gap: 1 }}>
           <TextField
@@ -119,6 +144,7 @@ function HomePage() {
                 handleSendMessage();
               }
             }}
+            autoComplete="off"
           />
           <Button variant="contained" color="primary" onClick={handleSendMessage}>
             Send
