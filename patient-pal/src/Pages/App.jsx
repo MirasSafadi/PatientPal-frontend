@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
+import { SocketProvider } from "./SocketContext.jsx"; // Import the SocketProvider
 
 import '../styles/App.css';
 
@@ -13,22 +14,26 @@ const isAuthenticated = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-        <Route
-            index
-            element={
-              // isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
-              <Home />
-            }
-          />
-          {/* <Route path="login" element={<Login />} /> */}
-          {/* <Route path="register" element={<Register />} /> */}
-          <Route path="*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+          <Route
+              index
+              element={
+                // isAuthenticated() ? <Home /> : <Navigate to="/login" replace />
+                <SocketProvider>
+                <Home />
+                </SocketProvider>
+              }
+            />
+            {/* <Route path="login" element={<Login />} /> */}
+            {/* <Route path="register" element={<Register />} /> */}
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    
   );
 }
 
