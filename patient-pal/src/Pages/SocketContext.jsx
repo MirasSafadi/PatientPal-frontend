@@ -10,13 +10,11 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
-    const username = localStorage.getItem("username"); // Retrieve the username from localStorage
     // Initialize the socket connection
     const newSocket = io("http://localhost:5000", {
         transports: ["polling", "websocket"],
         extraHeaders: {
             Authorization: `Bearer ${token}`, // Use the retrieved token
-            Username: username, // Use the retrieved username
         },
     });
 
