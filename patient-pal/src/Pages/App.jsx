@@ -2,10 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
+import Register from "./Register";
+ // ✅ ודא שהקובץ קיים
 import Login from "./Login.jsx";
 import MedicalApp from "./MedicalApp.jsx";
-/*import register from "./register.jsx"; */
-/* import register from "./register.jsx"; */
 import '../styles/App.css';
 
 import { AuthProvider, AuthContext } from "../context/AuthContext";
@@ -32,8 +32,8 @@ function App() {
               }
             />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} /> {/* ✅ פתיחת המסלול */}
             <Route path="MedicalApp" element={<MedicalApp />} />
-            {/* <Route path="register" element={<Register />} /> */}
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
