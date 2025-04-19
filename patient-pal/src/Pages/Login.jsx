@@ -217,6 +217,17 @@ const Login = () => {
             </Typography>
           )}
         </form>
+
+        {/* Sign Up Link */}
+        <Box sx={{ textAlign: "center", mt: 3 }}>
+          <Typography variant="body2">
+            Don't have an account?{" "}
+            <Link to="/register" style={{ color: '#1976d2', fontWeight: 'bold', textDecoration: 'none' }}>
+              Sign Up
+            </Link>
+          </Typography>
+        </Box>
+
       </Box>
     </Container>
   );
