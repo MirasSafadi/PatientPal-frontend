@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react"; 
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -19,6 +20,34 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const { setToken } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // פונקציית בדיקת תפוגת JWT
+  const isTokenExpired = (token) => {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const now = Math.floor(Date.now() / 1000);
+      return payload.exp && payload.exp < now;
+    } catch (e) {
+      return true;
+    }
+  };
+
+  // useEffect: אם יש טוקן בתוקף → להשאיר. אם לא – למחוק אותו
+  useEffect(() => {
+    const storedToken =
+      localStorage.getItem("token") ||
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1];
+
+    if (storedToken && isTokenExpired(storedToken)) {
+      // טוקן פג תוקף → מוחקים ומאפסים
+      localStorage.removeItem("token");
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      setToken(null);
+    }
+  }, [setToken]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,11 +73,19 @@ const Login = () => {
 
       if (response.ok && data.token) {
         setToken(data.token);
+
+        if (rememberMe) {
+          localStorage.setItem("token", data.token);
+        } else {
+          document.cookie = `token=${data.token}; path=/`;
+        }
+
         navigate("/");
       } else {
         setError(data.error || data.message || "Login failed");
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("Server error. Please try again later.");
     }
   };
@@ -175,9 +212,21 @@ const Login = () => {
             </Typography>
           )}
         </form>
+
+        {/* Sign Up Link */}
+        <Box sx={{ textAlign: "center", mt: 3 }}>
+          <Typography variant="body2">
+            Don't have an account?{" "}
+            <Link to="/register" style={{ color: '#1976d2', fontWeight: 'bold', textDecoration: 'none' }}>
+              Sign Up
+            </Link>
+          </Typography>
+        </Box>
+
       </Box>
     </Container>
   );
 };
 
 export default Login;
+ 
