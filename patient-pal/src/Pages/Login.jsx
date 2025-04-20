@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react"; 
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -65,22 +64,8 @@ const Login = () => {
           backgroundColor: "#f5f5f5",
         }}
       >
-        {/* Back Arrow + Title Row */}
-        <Box sx={{ position: "relative", mb: 3 }}>
-          <Link to="/login" style={{ textDecoration: 'none' }}>
-            <ArrowBackIosNewIcon
-              sx={{
-                position: "absolute",
-                left: 0,
-                top: "50%",
-                transform: "translateY(-50%)",
-                color: "text.primary",
-                fontSize: "1.2rem",
-                cursor: "pointer"
-              }}
-            />
-          </Link>
-
+        {/* Title Row (ללא חץ חזור) */}
+        <Box sx={{ mb: 3 }}>
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -175,6 +160,15 @@ const Login = () => {
             Login
           </Button>
 
+          {/* Register Link */}
+          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+            אין לך חשבון?{" "}
+            <Link to="/register" style={{ color: "#1976d2", textDecoration: "none" }}>
+              הירשם כאן
+            </Link>
+          </Typography>
+
+          {/* Error Message */}
           {error && (
             <Typography color="error" variant="body2" mt={2} align="center">
               {error}
