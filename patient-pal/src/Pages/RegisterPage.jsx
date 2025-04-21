@@ -43,13 +43,23 @@ const RegisterPage = () => {
       }
     });
 
-    //First & Last Name length check
-    if (form.firstName && form.firstName.length < 3) {
-      newErrors.firstName = "Name must be at least 3 characters long.";
+    //First & Last Name length check and non-alphabetical characters check
+    if (form.firstName) {
+      if (form.firstName.length < 3) {
+        newErrors.firstName = "Name must be at least 3 characters long.";
+      } else if (!/^[A-Za-z]+$/.test(form.firstName)) {
+        newErrors.firstName = "Name must contain only letters.";
+      }
     }
-    if (form.lastName && form.lastName.length < 3) {
-      newErrors.lastName = "Name must be at least 3 characters long.";
+    
+    if (form.lastName) {
+      if (form.lastName.length < 3) {
+        newErrors.lastName = "Name must be at least 3 characters long.";
+      } else if (!/^[A-Za-z]+$/.test(form.lastName)) {
+        newErrors.lastName = "Name must contain only letters.";
+      }
     }
+    
 
     //ID Number: 9 digits, numbers only
     if (form.idNumber && !/^\d{9}$/.test(form.idNumber)) {
@@ -62,14 +72,16 @@ const RegisterPage = () => {
     }
 
     //Email format
-    if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) {
+    if (form.email && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
+    
 
     //Password strength
-    if (form.password && !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(form.password)) {
-      newErrors.password = "Password must be at least 8 characters and contain letters and numbers.";
+    if (form.password && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(form.password)) {
+      newErrors.password = "Password must be at least 8 characters and contain small case and big case letters and numbers.";
     }
+    
 
     //Password match
     if (form.confirmPassword !== form.password) {

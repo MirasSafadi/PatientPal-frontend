@@ -3,6 +3,8 @@ import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
 import { SocketProvider } from "./SocketContext.jsx"; // Import the SocketProvider
+import Register from './RegisterPage';
+
 
 import '../styles/App.css';
 
@@ -28,7 +30,7 @@ function App() {
               }
             />
             {/* <Route path="login" element={<Login />} /> */}
-            {/* <Route path="register" element={<Register />} /> */}
+            {<Route path="register" element={<Register />} />}
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
