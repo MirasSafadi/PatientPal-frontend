@@ -99,6 +99,32 @@ const RegisterPage = () => {
     if (validate()) {
       console.log("Register form submitted", form);
       // Continue to submit logic or backend API call here
+      fetch('http://localhost:5000/register',{
+        method: "POST",
+        headers:{'Content-Type': 'application/json',
+
+               'Accept': 'application/json'
+              },
+        body: JSON.stringify({
+          username :form.username, 
+          email:form.email,
+          password:form.password,
+          confirm_password:form.confirmPassword,
+          id_number:form.idNumber,
+          first_name:form.firstName,
+          last_name: form.lastName,
+          phone: form.phone
+
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Response:', data);
+      })
+      .catch(err => {
+        console.error('Error:', err);
+      });
+
     }
   };
 
