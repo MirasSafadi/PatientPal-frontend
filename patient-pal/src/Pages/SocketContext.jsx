@@ -16,6 +16,7 @@ export const SocketProvider = ({ children }) => {
         transports: ["polling", "websocket"],
         extraHeaders: {
             Authorization: `Bearer ${token}`, // Use the token from AuthContext
+
         },
     });
 
