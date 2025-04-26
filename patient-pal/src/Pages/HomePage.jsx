@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography, TextField, Button, Paper } from "@mui/material";
-import { useSocket } from "./SocketContext"; // Import the useSocket hook
+import { useSocket } from "./SocketContext";
+import { AuthContext } from "../context/AuthContext"; // Import the AuthContext
+
 
 function HomePage() {
   const socket = useSocket(); // Access the socket instance
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false); // Track if waiting for server response
+  const { token } = useContext(AuthContext);
+
 
   useEffect(() => {
     if (!socket) return;
@@ -24,7 +28,9 @@ function HomePage() {
     return () => {
       socket.off("message");
     };
-  }, [socket]);
+  }, [socket, token]);
+
+
 
   const handleSendMessage = () => {
     if (input.trim() && socket) {
