@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography, TextField, Button, Paper } from "@mui/material";
-import { useSocket } from "./SocketContext";
+import { useSocket } from "../context/SocketContext";
 import { AuthContext } from "../context/AuthContext"; // Import the AuthContext
 
 
@@ -22,6 +22,9 @@ function HomePage() {
     });
     socket.on("connect", () => {
       console.log("Connected to server");
+    });
+    socket.on("chat_history", (history) => {
+      setMessages(history); // Set the chat history when received
     });
 
     // Clean up the listener on unmount

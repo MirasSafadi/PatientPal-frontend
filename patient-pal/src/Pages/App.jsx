@@ -1,15 +1,14 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
 import Register from "./Register";
 import Login from "./Login.jsx";
 import MedicalApp from "./MedicalApp.jsx";
-import { SocketProvider } from "./SocketContext.jsx";
+import { SocketProvider } from "../context/SocketContext.jsx";
 import '../styles/App.css';
 
-import { AuthProvider, AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import { AuthProvider } from "../context/AuthContext";
 import PrivateRoute from "../context/PrivateRoute.jsx";
 
 function App() {

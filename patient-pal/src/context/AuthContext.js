@@ -4,6 +4,28 @@ export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
+const isTokenExpired = async (token) => {
+  // check if the token is valid
+  try {
+    const response = await fetch("http://localhost:5000/validate_token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        token: token
+      })
+    });
+
+    const data = await response.json();
+
+    return response.ok && data.message === "Token is valid"
+
+  } catch (err) {
+    console.error("Token validity error:", err);
+  }
+  return false;
+}
 
 export const AuthProvider = ({ children }) => {
   const [token, setTokenState] = useState(() => {
@@ -21,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Sync the token with localStorage or cookies if it changes
-    if (token) {
+    if (token && isTokenExpired(token)) {
       localStorage.setItem("token", token);
       document.cookie = `token=${token}; path=/;`;
     } else {
