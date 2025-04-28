@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageNotFound from './404-Not-Found.jsx';
 import Home from './HomePage.jsx';
 import Layout from './Layout.jsx';
-import Register from "./Register";
+import RegisterPage from "./RegisterPage.jsx";
 import Login from "./Login.jsx";
 import MedicalApp from "./MedicalApp.jsx";
 import { SocketProvider } from "../context/SocketContext.jsx";
@@ -28,7 +28,7 @@ function App() {
               }
             />
             <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route path="register" element={<RegisterPage />} />
             <Route path="MedicalApp" element={<MedicalApp />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>

@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from "react"; 
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -196,15 +195,6 @@ const Login = () => {
           >
             Login
           </Button>
-
-          {/* Register Link */}
-          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-            אין לך חשבון?{" "}
-            <Link to="/register" style={{ color: "#1976d2", textDecoration: "none" }}>
-              הירשם כאן
-            </Link>
-          </Typography>
-
           {/* Error Message */}
           {error && (
             <Typography color="error" variant="body2" mt={2} align="center">
